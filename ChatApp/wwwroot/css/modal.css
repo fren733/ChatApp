@@ -1,0 +1,282 @@
+﻿.modal {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background: var(--background-primary);
+    margin: 5% auto;
+    padding: 1.5em;
+    width: 475px;
+    display: grid;
+    grid-template-columns: 36fr 1fr;
+    grid-auto-rows: auto;
+    border-radius: 0.4em;
+}
+
+.modal-profile-inner {
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    grid-gap: 0.5em;
+    margin-right: 1em;
+    margin-top: 2em;
+}
+
+#modal-arrow {
+    grid-column: 1/3;
+    display: none;
+    margin: 0 auto;
+    padding: 0.5em 0;
+    color: var(--font-icon);
+    font-size:1.3em;
+}
+
+    #modal-arrow:hover {
+        color: var(--blue);
+        cursor: pointer;
+    }
+
+.modal-profile-list {
+    display: none;
+    grid-column: 1/3;
+}
+
+    .modal-profile-list li {
+        margin: 1em 0;
+        padding: 0.5em;
+    }
+
+        .modal-profile-list li:hover {
+            background: var(--background-message);
+        }
+
+        .modal-profile-list li a {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+        }
+
+        .modal-profile-list li img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+.modal-profile-inner input {
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+
+.no-user .start-title {
+    color: var(--blue);
+    background: transparent;
+    font-size: 1.3em;
+}
+
+    .no-user .start-title:hover {
+        color: var(--blue-hover);
+    }
+
+.modal-inner {
+    display: grid;
+    grid-template-rows: 1fr 2fr 6fr 36fr 1fr;
+    height: 66vh;
+}
+
+.modal-user-list {
+    background: var(--background-primary);
+    display: grid;
+    grid-template-rows: 1fr 8fr;
+    margin-right: 0;
+    padding: 0;
+    margin-bottom: 1em;
+    height: 300px;
+}
+
+    .modal-user-list input {
+        font-size: 1em;
+        border: 1px solid var(--background-secondary);
+        padding: 1em;
+        grid-column: 1/3;
+    }
+
+        .modal-user-list input:focus {
+            outline-style: none;
+            border: 1px solid var(--background-secondary);
+        }
+
+    .modal-user-list ul {
+        overflow: auto;
+    }
+
+    .modal-user-list li {
+        display: grid;
+        grid-template-columns: 2fr 7fr 1fr;
+        background: var(--background-secondary);
+        border-radius: 0.4em;
+        padding: 1em;
+        padding-left: 0;
+        margin: 0.9em 0;
+        border: 1px solid var(--background-secondary);
+    }
+
+        .modal-user-list li:hover {
+            cursor: pointer;
+            background: var(--background-message);
+        }
+
+.modal-inner textarea, .modal-inner input {
+    padding: 1em;
+    margin-bottom: 0.5em;
+}
+
+.modal-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1em;
+}
+
+.modal-send-image {
+    color: var(--font-icon);
+    margin: auto 0.5em auto auto;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+    .modal-send-image:hover {
+        color: var(--blue);
+    }
+
+.modal-content .profile-picture {
+    padding: 1em 0.5em;
+    padding-left: 0;
+    align-items: center;
+}
+
+.card {
+    vertical-align: central;
+}
+
+.modal-user-list li {
+    display: grid;
+    grid-template-columns: 1fr 8fr 2fr;
+    background: var(--background-secondary);
+    border-radius: 0.4em;
+    padding: 1em;
+    margin: 0.9em 0;
+    border: 1px solid var(--background-secondary);
+}
+
+.modal-content input {
+    font-size: 1em;
+    border: 1px solid var(--background-secondary);
+}
+
+    .modal-content input:focus {
+        outline-style: none;
+        border: 1px solid var(--background-secondary);
+    }
+
+.modal-content button {
+    border-radius: 0.3em;
+    background: var(--blue);
+    color: var(--font-secondary);
+}
+
+.modal-options {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.modal-inner button {
+    margin: 0.5em auto;
+    padding: 0.5em;
+}
+
+#new-talk-button {
+    font-size: 1.3em;
+    padding: 0.3em 1em;
+    color: var(--font-message);
+    border-radius: 1em;
+}
+
+    #new-talk-button:hover {
+        background: var(--blue-hover);
+    }
+
+/* kropka do zaznaczenia */
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+}
+
+    /* Hide the browser's default checkbox */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: var(--background-message);
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: var(--blue);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

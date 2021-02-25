@@ -1,0 +1,23 @@
+﻿<head>
+    <title>My profile</title>
+    <link rel="stylesheet" href="~/css/profile.css" />
+</head>
+<div class="main">
+    <form asp-controller="Home" asp-action="Settings" method="post">
+        <div>
+            <label>Enable dark mode</label>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" name="darkTheme" value="true" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<div class="talks">
+</div>
+<script>
+    $("#settings").addClass("current");
+</script>

@@ -1,0 +1,140 @@
+﻿<head>
+    <title>Users browser</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/profile.css" />
+</head>
+
+<partial name="UsersList" />
+
+<div class="main">
+    @if (ViewBag.Null == true)
+    {
+        <div class="no-user">
+            <h2>Choose friend on left</h2>
+            <h3>Or click <button class="start-title" id="open-modal">here</button> to invite someone</h3>
+        </div>
+    }
+    else
+    {
+        <div>
+            <div class="picture-main-profile">
+                <img src="~\Images\anon-profile-picture.png" />
+            </div>
+        </div>
+        <div class="main-header">
+            <div>
+                <h1>@ViewBag.UserVM.Username</h1>
+                <div class="offline">
+                    <i class="fas fa-dot-circle"></i><p>last 20.03.20, 13:45</p>
+                </div>
+                @if (ViewBag.UserVM.IsFriend == true)
+                {
+                    <button class="button" id="addRemoveFriend">Delete friend</button>
+                }
+                else
+                {
+                    if (ViewBag.WaitForAccept == true)
+                    {
+                        <button class="button" id="addRemoveFriend">Waiting for accept</button>
+                    }
+                    else
+                    {
+                        <button class="button" id="addRemoveFriend">Add friend</button>
+                    }
+                }
+            </div>
+            <nav>
+                <h4>About</h4>
+            </nav>
+        </div>
+        <div class="about">
+            <i class="fas fa-id-card"></i>
+                <p>@ViewBag.UserVM.Email</p>
+                <i class="fas fa-quote-right"></i>
+                <p>@ViewBag.Description</p>
+            <p>Joined</p>
+            <p>03.03.2019</p>
+        </div>
+        <div class="inner-list">
+            <ul>
+                @if (ViewBag.Groups != null)
+                {
+                    foreach (var group in ViewBag.Groups)
+                    {
+                        <li id="@group.Id">
+                            <div class="profile-picture">
+                                <div class="circle">
+                                    <img src="~\Images\anon-profile-picture.png" />
+                                </div>
+                            </div>
+                            <div id="card" class="card">
+                                <h3>@group.Name</h3>
+                                <div class="offline">
+                                    <i class="fas fa-dot-circle"></i><p> last 20.20.20 13:54</p>
+                                </div>
+                                <p>Last message: @group.LastMessage</p>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+<div class="talks">
+    <div class="new-message">
+        <h2>All Users</h2>
+        <button id="new-message-button"><i class="fas fa-plus-square"></i></button>
+        <input id="search-talks" onkeyup="search()" type="text" placeholder="Search...">
+    </div>
+    <div class="nothing-found">
+        <i class="far fa-frown-open"></i>
+        <h2>Nothing found here</h2>
+        <h3>Find friends</h3>
+    </div>
+    <ul id="list">
+        @foreach (var item in ViewBag.Friends)
+        {
+            <li>
+                <div class="profile-picture">
+                    <div class="circle">
+                        @if (item.Source != null)
+                        {
+                            <img src="@item.Source" />
+                        }
+                        else
+                        {
+                            <img src="~\Images\anon-profile-picture.png" />
+                        }
+                    </div>
+                </div>
+                <div id="card" class="card">
+                    <h3>@item.Username</h3>
+                    @if (item.IsOnline == true)
+                    {
+                        <div class="online">
+                            <i class="fas fa-dot-circle"></i><p> Online now</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="offline">
+                            <i class="fas fa-dot-circle"></i><p> last @item.LastOnline</p>
+                        </div>
+                    }
+
+                </div>
+                <a asp-controller="Home" asp-action="Profile" asp-route-username="@item.Username">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/addRemoveFriend.js"></script>
+<script>
+    $("#profile").addClass("current");
+</script>

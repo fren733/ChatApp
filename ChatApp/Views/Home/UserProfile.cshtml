@@ -1,0 +1,113 @@
+﻿@model ChatApp.Models.ViewModels.UserViewModel
+
+<head>
+    <title>My profile</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/profile.css" />
+</head>
+
+<partial name="UsersList" />
+
+<form class="main" enctype="multipart/form-data" asp-action="UserProfile" asp-controller="Home" method="post">
+    <div>
+        <div class="send-image picture-main-profile">
+            <input type="file" name="Image" id="ImageFile" class="inputfile" />
+            <label class="createpost-button" for="ImageFile">
+                @if (Model.Source != null)
+                {
+                    <img src="@Model.Source" alt="Alternate Text" />
+                }
+                else
+                {
+                    <img src="~\Images\anon-profile-picture.png" />
+                }
+            </label>
+        </div>
+    </div>
+    <div class="main-header">
+        <div>
+            <h1>@Model.Username</h1>
+            <div class="offline">
+                <i class="fas fa-dot-circle"></i><p>last @Model.LastOnline</p>
+            </div>
+        </div>
+        <nav>
+            <h4>About me</h4>
+        </nav>
+    </div>
+    <div class="about-me">
+
+        <i class="fas fa-id-card"></i>
+        <p>@Model.Email</p>
+        <input name="Email" type="text" placeholder="New email address">
+
+        <i class="fas fa-quote-right"></i>
+        <p>@Model.About</p>
+        <input name="About" type="text" placeholder="New bio">
+
+        <p>Joined</p>
+        <p>@Model.FirstLogin.Date.ToString()</p>
+        <button type="submit">Apply changes</button>
+
+    </div>
+</form>
+
+<div class="talks">
+    <div class="new-message">
+        <h2>All Friends</h2>
+
+        <button id="new-message-button"><i class="fas fa-plus-square"></i></button>
+        <input id="search-talks" onkeyup="search()" type="text" placeholder="Search...">
+    </div>
+    <div class="nothing-found">
+        <i class="far fa-frown-open"></i>
+        <h2>Nothing found here</h2>
+        <h3>Find friends</h3>
+    </div>
+    <ul id="list">
+        @if (ViewBag.Friends != null)
+        {
+            @foreach (var item in ViewBag.Friends)
+            {
+                <li>
+                    <div class="profile-picture">
+                        <div class="circle">
+                            @if (item.Source != null)
+                            {
+                                <img src="@item.Source" />
+                            }
+                            else
+                            {
+                                <img src="~\Images\anon-profile-picture.png" />
+                            }
+                        </div>
+                    </div>
+                    <div id="card" class="card">
+                        <h3>@item.Username</h3>
+                        @if (item.IsOnline == true)
+                        {
+                            <div class="online">
+                                <i class="fas fa-dot-circle"></i><p> Online now</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="offline">
+                                <i class="fas fa-dot-circle"></i><p> last @item.LastOnline</p>
+                            </div>
+                        }
+
+                    </div>
+                    <a asp-controller="Home" asp-action="Profile" asp-route-username="@item.Username">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+<script>
+    $("#userProfile").addClass("current");
+</script>
+
+

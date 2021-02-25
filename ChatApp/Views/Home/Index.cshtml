@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+    <head>
+        <title>Messages</title>
+    </head>
+
+<partial name="Modal" model="ViewBag.Users" />
+
+<div class="main">
+    <div class="header">
+        <div class="circle">
+            <img src="~\Images\anonymous.png" />
+        </div>
+        <h3>Choose group on right</h3>
+        <button onclick="Start()"><i class="fas fa-search"></i></button>
+        <button onclick="Details()"><i class="fas fa-bars"></i></button>
+        <input type="text" onkeyup="searchMessage()" id="search-message" placeholder="Search message" />
+    </div>
+    <div class="bottom">
+        <input type="text" placeholder="Search message" />
+    </div>
+    <div class="messages">
+        <ul>
+            <li>
+                <div class="main-start">
+                    <h2>Choose one of your groups</h2>
+                    <h4>Dont have any?</h4>
+                    <h3>Click <button class="start-title" id="open-modal">here</button> to create one</h3>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="group-details">
+        <div class="group-inner"></div>
+        <span class="close-details">&times;</span>
+    </div>
+    <div class="footer">
+        <div class="send-image">
+            <input type="file" name="ImageFile" id="ImageFile" class="inputfile" multiple/>
+            <label class="createpost-button" for="ImageFile"><i class="fas fa-image"></i></label>
+        </div>
+        <input id="message-text" type="text" placeholder="Type here some text">
+        <button class="send" id="send"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+<div class="talks">
+    <div class="new-message">
+        <h2>All Messages</h2>
+
+        <button id="new-message-button"><i class="fas fa-pen-square"></i></button>
+        <input class="search-talks" id="search-talks" onkeyup="search()" type="text" placeholder="Search...">
+    </div>
+    <div class="nothing-found">
+        <i class="far fa-frown-open"></i>
+        <h2>Nothing found here</h2>
+        <h3>Find friends</h3>
+    </div>
+    <ul id="list">  
+        @if (ViewBag.Groups != null)
+        {
+            foreach (var group in ViewBag.Groups)
+            {
+                <li id="@group.Id">
+                    <div class="profile-picture">
+                        <div class="circle">
+
+                            @if (group.Src != null)
+                            {
+                                <img src="@group.Src" />
+                            }
+                            else
+                            {
+                                <img src="~\Images\anon-profile-picture.png" />
+                            }
+                        </div>
+                    </div>
+                    <div id="card" class="card">
+                        <div class="group-name">
+                            <h3>
+                                @group.Name
+                            </h3>
+                            @if (group.AmIKing == true)
+                            {
+                                <i class="fas fa-crown"></i>
+                            }
+                        </div>
+                        <div class="offline">
+                            <i class="fas fa-dot-circle"></i><p> last @group.LastOnline</p>
+                        </div>
+                        @if (group.LastMessage != null)
+                        {
+                            <p>Last message: @group.LastMessage</p>
+                        }
+                        else
+                        {
+                            <p>Send something</p>
+                        }
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+<script>var identity = '@User.Identity.Name'</script>
+<script src="~/js/chat.js"></script>
+<script src="~/js/ReceiveMessage.js"></script>
+<script src="~/js/group.js"></script>
+<script>
+    $("#msg").addClass("current");
+</script>

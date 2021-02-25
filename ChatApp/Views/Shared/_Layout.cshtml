@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> signInManager;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/modal.css" rel="stylesheet" />
+    <link href="~/css/notifications.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/signalRConnection.js"></script>
+
+</head>
+<body>
+    <div id="imageModal" class="image-modal">
+        <span class="close-image">&times;</span>
+        <img class="image-modal-content" id="img01">
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+
+    @*<partial name="Modal" model="ViewBag.Users" />*@
+
+    <nav class="navbar">
+        <h3><a href="/Home/UserProfile">@User.Identity.Name</a></h3>
+        <div class="notify-friends">
+            <button>
+                <i class="fas fa-bell"></i>
+                <p>4</p>
+            </button>
+            <div class="dropdown-friends">
+                <ul>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="leftmenu">
+            <ul>
+                <li id="msg"><a href="/"><i class="fas fa-comment-alt"></i></a></li>
+                <li id="profile"><a href="/Home/Profile"><i class="fas fa-user-friends"></i></a></li>
+                <li id="settings"><a href="/Home/Settings"><i class="fas fa-cog"></i></a></li>
+                <li id="userProfile"><a href="/Home/UserProfile"><i class="fas fa-user-alt"></i></a></li>
+                <li><a href="/Account/Logout"><i class="fas fa-power-off"></i></a></li>
+            </ul>
+        </div>
+        @RenderBody()
+        <div class="show-talks">
+            <i class="fas fa-align-right"></i>
+        </div>
+    </div>
+    <script src="~/js/connectionInfo.js"></script>
+    <script src="~/js/modal.js"></script>
+    <script src="~/js/search.js"></script>
+    <script src="~/js/settings.js"></script>
+    <script src="~/js/sideList.js"></script>
+    <script src="~/js/notification.js"></script>
+
+</body>
+</html>

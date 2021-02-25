@@ -1,0 +1,46 @@
+﻿@model ChatApp.Models.ViewModels.GroupViewModel
+
+<h3>Group details: </h3>
+<p>Creation Date: @Model.CreationDate</p>
+<div class="details-top">
+    <p>Group name: @Model.Name</p>
+    @if (Model.AmIKing)
+    {
+        <div class="group-change-image">
+            <input type="file" name="GroupImageFile" id="GroupImageFile" class="inputfile" />
+            <label class="createpost-button" for="GroupImageFile"><i class="fas fa-image"></i></label>
+        </div>
+        <input type="text" id="NewGroupName" placeholder="New group name" />
+        <input type="text" id="AboutGroup" placeholder="About group" />
+    }
+</div>
+<p>Members:</p>
+<ul>
+    @foreach (var item in Model.Users)
+    {
+        <li>
+            <img src="@item.Source">
+            <p>@item.Username</p>
+            @if (Model.AmIKing && item.Username != User.Identity.Name)
+            {
+                <div class="delete-user">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+            }
+        </li>
+    }
+</ul>
+@if (Model.AmIKing)
+{
+    <div class="add-user">
+        <button class="add-user-button">
+            <p>Add user</p><i class="fas fa-user-plus"></i>
+        </button>
+    </div>
+    <div>
+        <button class="update-group-button">Apply changes</button>
+        <button class="remove-group-button">Delete group</button>
+    </div>
+}
+
+

@@ -1,0 +1,76 @@
+﻿<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-inner">
+            <div class="modal-header">
+                <h2>Add New Group</h2>
+                <div class="modal-send-image">
+                    <input type="file" name="ModalImageFile" id="ModalImageFile" class="inputfile" />
+                    <label class="createpost-button" for="ModalImageFile"><i class="fas fa-image"></i></label>
+                </div>
+            </div>
+            <input type="text" id="talk-name" placeholder="Group name" />
+            <textarea id="description" placeholder="Describe your new group"></textarea>
+            <div class="modal-user-list">
+                <div class="new-message">
+                    <h4>Friends</h4>
+                    <input id="search-talks-modal" onkeyup="searchModal()" type="text" placeholder="Search...">
+                </div>
+                <div class="modal-nothing-found">
+                    <i class="far fa-frown-open"></i>
+                    <h2>Nothing found here</h2>
+                    <h3>Find friends</h3>
+                </div>
+                <ul id="friends-modal">
+                    @if (ViewBag.Users != null)
+                    {
+                        foreach (var item in ViewBag.Users)
+                        {
+                            <li>
+                                <div class="profile-picture">
+                                    <div class="circle">
+                                        @if (item.Source != null)
+                                        {
+                                            <img src="@item.Source" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~\Images\anon-profile-picture.png" />
+                                        }
+                                    </div>
+                                </div>
+                                <div id="card" class="card">
+                                    <h3>@item.Username</h3>
+                                    @if (item.IsOnline == true)
+                                    {
+                                        <div class="online">
+                                            <p><i class="fas fa-dot-circle"></i> Online now</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="offline">
+                                            <p><i class="fas fa-dot-circle"></i> last @item.LastOnline</p>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="modal-options">
+                                    <label class="container">
+                                        <input type="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <a asp-controller="Home" asp-action="Profile" asp-route-username="@item.Username">
+                                        <i class="fas fa-bars"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <button id="new-talk-button">Create</button>
+        </div>
+        <div>
+            <span class="close">&times;</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model ChatApp.Models.ViewModels.RegisterViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="container">
+        <div class="overlay">
+            <div class="overlay-panel">
+                <h1>Welcome, friend</h1>
+                <p>Join to us!</p>
+            </div>
+        </div>
+        <div class="form-container sign-up-container">
+            <form action="Register" method="post">
+                <h1>Create Account</h1>
+                <input asp-for="Username" type="text" placeholder="Username">
+                <input asp-for="Email" type="text" placeholder="Email">
+                <input asp-for="Password" type="password" placeholder="Password">
+                <button type="submit">Register</button>
+                <a href="/Account/Login">Or sign in here</a>
+            </form>
+        </div>
+        <div class="switch-icons">
+            <i class="fas fa-sun"></i>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" name="darkTheme" value="true" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+
+    if (toggleSwitch != null) {
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+            else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    }
+
+</script>
