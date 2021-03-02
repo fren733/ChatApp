@@ -70,7 +70,7 @@ namespace ChatApp.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToAction(nameof(Register));
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
 
                 foreach (var error in result.Errors)

@@ -285,18 +285,22 @@ namespace ChatApp.Controllers
 
         #region Group CRUD
 
-        public JsonResult AddGroup(string[] usersList, IFormFile file, string name, string description)
+        public JsonResult AddGroup(string usersList, IFormFile file, string name, string description)
         {
             if (name == null) return Json(false);
 
-            usersList = usersList[0].Split(",");
             List<string> list = new List<string>
             {
                 User.Identity.Name
             };
 
-            foreach (var item in usersList)
-                list.Add(item);
+            if (usersList != null)
+            {
+                string[] uList = usersList.Split(",");
+
+                foreach (var item in uList)
+                    list.Add(item);
+            }
 
             Group group = new Group
             {
@@ -370,7 +374,7 @@ namespace ChatApp.Controllers
             {
                 foreach (var message in messages)
                 {
-                    Image profileImage = _context.Images.Where(x => x.UserId == message.UserId).SingleOrDefault();
+                    Image profileImage = _context.Images.Where(x => x.UserId.Equals(message.UserId)).FirstOrDefault();
                     Image image = _context.Images.Where(x => x.Id == message.Image).FirstOrDefault();
 
                     MessageViewModel messageVM = new MessageViewModel
@@ -602,9 +606,12 @@ namespace ChatApp.Controllers
 
         public JsonResult GetUserSettings()
         {
-            Settings settings = new Settings();
+            //Settings settings = new Settings();
             User user = _context.Users.Where(x => x.UserName == User.Identity.Name).SingleOrDefault();
-            settings = _context.Settings.Where(x => x.UserId == user.Id).SingleOrDefault();
+            Settings settings = _context.Settings.Where(x => x.UserId == user.Id).SingleOrDefault();
+
+            if (settings == null)
+                settings = new Settings(false);
 
             return Json(settings.DarkMode);
         }
@@ -714,7 +721,7 @@ namespace ChatApp.Controllers
             bool isOnline = true;
             string currentUser = User.Identity.Name;
             User user = new User();
-            Image image = _context.Images.Where(x => x.UserId == user.Id).SingleOrDefault();
+            Image image = new Image();
             List<UserViewModel> userVMs = new List<UserViewModel>();
             List<Friends> friends = _context.Friends.Where(x => (x.FirstUserId == User.Identity.Name || x.SecondUserId == User.Identity.Name) && x.IsConfirmed == true).ToList();
 
@@ -727,12 +734,14 @@ namespace ChatApp.Controllers
                     isOnline = _context.Connections.Contains(_context.Connections.Where(x => x.Username == item.SecondUserId).FirstOrDefault());
                     user = _context.Users.Where(x => x.UserName == item.SecondUserId).FirstOrDefault();
                     UserVM.Username = item.SecondUserId;
+                    image = _context.Images.Where(x => x.UserId == item.SecondUserId).SingleOrDefault();
                 }
                 else
                 {
                     isOnline = _context.Connections.Contains(_context.Connections.Where(x => x.Username == item.FirstUserId).FirstOrDefault());
                     user = _context.Users.Where(x => x.UserName == item.SecondUserId).FirstOrDefault();
                     UserVM.Username = item.FirstUserId;
+                    image = _context.Images.Where(x => x.UserId == item.FirstUserId).SingleOrDefault();
                 }
 
                 UserVM.IsFriend = true;
@@ -778,11 +787,11 @@ namespace ChatApp.Controllers
 
             else if (group != null)
             {
-                Image imgToDelete = _context.Images.Where(x => x.UserId == group.Id).SingleOrDefault();
+                List<Image> imgToDelete = _context.Images.Where(x => x.GroupId == group.Id).ToList();
                 if (imgToDelete != null)
-                    _context.Images.Remove(imgToDelete);
+                    _context.Images.RemoveRange(imgToDelete);
 
-                image.GroupId = user.Id;
+                image.GroupId = group.Id;
             }
 
             _context.Images.Add(image);

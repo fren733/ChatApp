@@ -11,8 +11,13 @@ $(document).ready(function () {
             if (ChosenGroup != this.id) {
                 ChosenGroup = this.id;
 
+                var src = $(this).find('.profile-picture').find('.circle').find('img').attr('src');
+                $('#group-main-image').attr('src', src);
+
                 $('.messages ul').empty();
                 $('.header h3').text(name);
+
+
 
                 GetGroup(this.id, page);
             }
@@ -63,6 +68,8 @@ connection.on("ReceiveMessage", function (messageId, imageId, groupId) {
 
 // Calls when new group is created and append one to side list
 connection.on("ReceiveNewGroup", function (name, src, id) {
+    $('#nothing-found-side-list').hide();
+
     var li = document.createElement("li");
     li.setAttribute("id", id);
 
@@ -245,10 +252,9 @@ function ShowMessage(username, profileImage, image, content, datetime) {
         profile.src = profileImage;
     }
     else {
-        profile.src = "\Images\anonymous.png";
+        profile.src = "~\Images\anonymous.png";
     }
     circle.append(profile);
-
 
     var messageInner = document.createElement("div");
     var text = document.createElement("p");
@@ -341,6 +347,8 @@ function GetGroup(id, page) {
 
 // Prepare and append DOM for one group to side list when its created
 function AppendGroupToList(id, src, name) {
+    $('#nothing-found-side-list').hide();
+
     var li = document.createElement("li");
     li.setAttribute("id", id);
 
