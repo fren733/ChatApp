@@ -18,7 +18,14 @@
     {
         <div>
             <div class="picture-main-profile">
-                <img src="~\Images\anon-profile-picture.png" />
+                @if (ViewBag.UserVM.Source == null)
+                {
+                    <img src="~\Images\anonymous.png" />
+                }
+                else
+                {
+                    <img src="@ViewBag.UserVM.Source" />
+                }
             </div>
         </div>
         <div class="main-header">
@@ -64,7 +71,14 @@
                         <li id="@group.Id">
                             <div class="profile-picture">
                                 <div class="circle">
-                                    <img src="~\Images\anon-profile-picture.png" />
+                                    @if (group.Src != null)
+                                    {
+                                        <img src="@group.Src" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~\Images\anonymous.png" />
+                                    }
                                 </div>
                             </div>
                             <div id="card" class="card">

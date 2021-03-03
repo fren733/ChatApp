@@ -134,11 +134,14 @@ namespace ChatApp.Controllers
                     if (listUG.Contains(listUG.Where(x => x.User == user).FirstOrDefault()) &&
                         listUG.Contains(listUG.Where(x => x.User == currUser).FirstOrDefault()))
                     {
+                        Image img = _context.Images.Where(x => x.GroupId == group.Id).SingleOrDefault();
+
                         GroupViewModel groupVM = new GroupViewModel()
                         {
                             Id = group.Id,
                             Name = group.Name,
-                            LastMessage = group.LastMessage
+                            LastMessage = group.LastMessage,
+                            Src = ReadImage(img)
                         };
 
                         if (!groupVMs.Contains(groupVMs.Where(x => x.Id == groupVM.Id).FirstOrDefault()))
@@ -734,14 +737,14 @@ namespace ChatApp.Controllers
                     isOnline = _context.Connections.Contains(_context.Connections.Where(x => x.Username == item.SecondUserId).FirstOrDefault());
                     user = _context.Users.Where(x => x.UserName == item.SecondUserId).FirstOrDefault();
                     UserVM.Username = item.SecondUserId;
-                    image = _context.Images.Where(x => x.UserId == item.SecondUserId).SingleOrDefault();
+                    image = _context.Images.Where(x => x.UserId == user.Id).SingleOrDefault();
                 }
                 else
                 {
                     isOnline = _context.Connections.Contains(_context.Connections.Where(x => x.Username == item.FirstUserId).FirstOrDefault());
-                    user = _context.Users.Where(x => x.UserName == item.SecondUserId).FirstOrDefault();
+                    user = _context.Users.Where(x => x.UserName == item.FirstUserId).FirstOrDefault();
                     UserVM.Username = item.FirstUserId;
-                    image = _context.Images.Where(x => x.UserId == item.FirstUserId).SingleOrDefault();
+                    image = _context.Images.Where(x => x.UserId == user.Id).SingleOrDefault();
                 }
 
                 UserVM.IsFriend = true;
