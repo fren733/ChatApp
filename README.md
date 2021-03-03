@@ -2,7 +2,7 @@
 Simple communication app. Has two themes - dark and light (both version on screenshots below) <br/>
 User can create conversation groups, delete and edit them. The applied SignalR library allows server to send requests to the clients.
 <br/>
-App will be updated with a few elements in the fututre. If you want try it out, download latest version.
+App will be updated with a few elements in the future. If you want try it out, download latest version.
 <br/>
 <br/>
 Main page - dark theme
