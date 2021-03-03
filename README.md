@@ -1,6 +1,6 @@
 # ChatApp
 Simple communication app. Has two themes - dark and light (both version on screenshots below) and is fully responsive <br/>
-User can create conversation groups, delete and edit them. The applied SignalR library allows server to send requests to the clients.
+User can create conversation groups, delete and edit them. The applied SignalR library allows server to send data to the clients without requests.
 <br/>
 App will be updated with a few elements in the future. If you want try it out, download latest version.
 <br/>
