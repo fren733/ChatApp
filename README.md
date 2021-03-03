@@ -1,5 +1,5 @@
 # ChatApp
-Simple communication app. Has two themes - dark and light (both version on screenshots below) <br/>
+Simple communication app. Has two themes - dark and light (both version on screenshots below) and is fully responsive <br/>
 User can create conversation groups, delete and edit them. The applied SignalR library allows server to send requests to the clients.
 <br/>
 App will be updated with a few elements in the future. If you want try it out, download latest version.
@@ -11,6 +11,11 @@ Main page - dark theme
 <br/>
 Modal box - dark theme
 ![Modal box](https://i.imgur.com/IhRchwg.png)
+<br/>
+<br/>
+Responsive app
+![Responsiveness1](https://i.imgur.com/woZanvG.png)
+![Responsiveness2](https://i.imgur.com/feu5Bzi.png)
 <br/>
 <br/>
 Login page - dark theme
